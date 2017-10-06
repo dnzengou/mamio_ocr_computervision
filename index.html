@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="translucent black">
-    <meta name="author" author="DesireYavro">
-    <meta name="description" content="MAMIO smart app | lightweight, easy and of quick access. Whenever you want, wherever you want, in one click.">
+    <meta name="author" author="@DesireYavro">
+    <meta name="description" content="MAMIO | lightweight, easy and of quick access. Whenever you want, wherever you want, in one click.">
     <meta name="keywords" content="mobile and desktop app, iPhone, Android, blackberry, jQuerymobile, image recognition, text to speech, AI, computer vision">
     <meta name="robots" content="all">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet" type="text/css">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- bootstrap & font awesome components -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- end bootstrap -->
 
     <!-- favicons -->
@@ -26,21 +26,92 @@
     <link rel="mask-icon" href="css/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
 
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
 
+    <nav class="navbar navbar-toggleable-md navbar-static-top bg-faded">
+        <div class="container">
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="css/img/favicons/favicon-32x32.png">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#readimage"><i class="fa fa-home"> </i><span class="sr-only">Read an image</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:mamio.app@gmail.com?Subject=Get%20in%20touch" target="_top">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="title">
+            <h2>MAMIO</h2>
+        </div>
+        <div class="container">
+            <div class="userInterface">
+                <!--Enter the URL to an image of printed text, then click the <strong>Read Image</strong> button.-->
+                <br><br> Image to read: <input type="text" name="inputImage" id="inputImage" value="Enter image URL here." />
+                <button onclick="processImage()" id="readimage">Read Image</button>
+                <br><br>
+                <div id="wrapper" style="width:1020px; display:table;">
+                    <div id="jsonOutput" style="width:600px; display:table-cell;">
+                        Response:
+                        <br><br>
+                        <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+                    </div>
+                    <div id="imageDiv" style="width:420px; display:table-cell;">
+                        Source image:
+                        <br><br>
+                        <img id="sourceImage" width="400" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+
+        <ul class="menu">
+            <p style="text-align:center;"><a href="#">MAMIO</a>&copy; 2017 with <i class="fa fa-coffee" style="color:brown"></i> <i class="fa fa-heart" style="color:pink"></i>
+            </p>
+        </ul>
+
+    </footer>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js "></script>
+    <script type="text/javascript " src="common.js "></script>
+
     <script type="text/javascript">
+        /* Recognize and read printed text in an image at the specified URL by using Microsoft Cognitive 
+         * Services OCR API.
+         * @param {string} sourceImageUrl - The URL to the image to analyze for printed text.
+         * @param {<textarea> element} responseTextArea - The text area to display the JSON string returned
+         *                             from the REST API call, or to display the error message if there was 
+         *                             an error.
+         */
+
         function processImage() {
             // **********************************************
             // *** Update or verify the following values. ***
             // **********************************************
 
-            // Replace the subscriptionKey string value with your valid subscription key.
+            // Add valid subscription key.
             /*var subscriptionKey = "13hc77781f7e4b19b5fcdd72a8df7156";*/
             var subscriptionKey = "a572110ef412425fb537e93b013271bd";
 
-            // Replace or verify the region.
+            // Verify the region.
             //
             // You must use the same region in your REST API call as you used to obtain your subscription keys.
             // For example, if you obtained your subscription keys from the westus region, replace
@@ -92,23 +163,6 @@
         };
     </script>
 
-    <h1>Optical Character Recognition (OCR):</h1>
-    Enter the URL to an image of printed text, then click the <strong>Read image</strong> button.
-    <br><br> Image to read: <input type="text" name="inputImage" id="inputImage" value="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Atomist_quote_from_Democritus.png/338px-Atomist_quote_from_Democritus.png" />
-    <button onclick="processImage()">Read image</button>
-    <br><br>
-    <div id="wrapper" style="width:1020px; display:table;">
-        <div id="jsonOutput" style="width:600px; display:table-cell;">
-            Response:
-            <br><br>
-            <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
-        </div>
-        <div id="imageDiv" style="width:420px; display:table-cell;">
-            Source image:
-            <br><br>
-            <img id="sourceImage" width="400" />
-        </div>
-    </div>
 </body>
 
 </html>
