@@ -56,42 +56,50 @@
     </nav>
 
     <div class="page">
-        <div class="title">
+        <div class="title" style="color:#f0f0f0">
             <h2>MAMIO</h2>
         </div>
         <div class="container">
             <div class="userInterface">
-                <!--Enter the URL to an image of printed text, then click the <strong>Read Image</strong> button.-->
-                <br><br> Image to read: <input type="text" name="inputImage" id="inputImage" value="Enter image URL here." />
-                <button onclick="processImage()" id="readimage">Read Image</button>
-                <br><br>
-                <div id="wrapper" style="width:1020px; display:table;">
-                    <div id="jsonOutput" style="width:600px; display:table-cell;">
-                        Response:
-                        <br><br>
-                        <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
-                    </div>
-                    <div id="imageDiv" style="width:420px; display:table-cell;">
-                        Source image:
-                        <br><br>
-                        <img id="sourceImage" width="400" />
+                <div class="row">
+                    <!--Enter the URL to an image of printed text, then click the <strong>Read Image</strong> button.-->
+                    <br><br>
+                    <p style="color:#f0f0f0">Image URL: <input type="text" name="inputImage" id="inputImage" value="Enter image URL here." style="color:lightgray" />
+                        <!-- ex. https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Hypokalemic_Periodic_Paralysis_Medicines_in_Pakistan.JPG/640px-Hypokalemic_Periodic_Paralysis_Medicines_in_Pakistan.JPG-->
+                        <button class="btn btn-info" onclick="processImage()" id="readimage"> CLICK HERE </button></p>
+                    <br><br>
+                    <div id="wrapper" style="width:1020px; display:table; color:#f0f0f0">
+                        <div id="jsonOutput" style="width:600px; display:table-cell;">
+                            <div class="col-sm-8">
+                                Response:
+                                <br><br>
+                                <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+                            </div>
+                        </div>
+                        <div id="imageDiv" style="width:420px; display:table-cell; color:#f0f0f0">
+                            <div class="col">
+                                Source image:
+                                <br><br>
+                                <img id="sourceImage" width="400" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <footer id="footer">
 
-        <ul class="menu">
-            <p style="text-align:center;"><a href="#">MAMIO</a>&copy; 2017 with <i class="fa fa-coffee" style="color:brown"></i> <i class="fa fa-heart" style="color:pink"></i>
+        <ul class="menu" style="text-align:center;">
+            <p><a href="#">MAMIO</a>&copy; 2017 with <i class="fa fa-coffee" style="color:brown"></i> <i class="fa fa-heart" style="color:pink"></i>
             </p>
         </ul>
 
     </footer>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js "></script>
-    <script type="text/javascript " src="common.js "></script>
 
     <script type="text/javascript">
         /* Recognize and read printed text in an image at the specified URL by using Microsoft Cognitive 
@@ -108,7 +116,7 @@
             // **********************************************
 
             // Add valid subscription key.
-            var subscriptionKey = "xxx";
+            var subscriptionKey = "xxx ";
 
             // Verify the region.
             //
