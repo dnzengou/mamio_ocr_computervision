@@ -12,7 +12,7 @@
     display: flex;
 }
 
-.navagation {
+.navigation {
     width: 260px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .imageDiv {
-    background-color: #f0f0f0;
+    background-color: transparent;
     flex-grow: 1;
 }
 
@@ -87,4 +87,13 @@ li a {
 li a:hover {
     background-color: #000555;
     color: white;
+}
+
+footer {
+    height: 30px;
+    background-color: lightblue;
+}
+
+footer>p {
+    padding: 0 125px;
 }
