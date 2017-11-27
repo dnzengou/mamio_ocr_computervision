@@ -54,25 +54,28 @@
 	<div id="content" class="content" style="display:none;">
 		<div class="image-selector">
 			<input id="picture-field" type="file" capture="camera" accept='image/x-png, image/jpg, image/gif, image/jpeg, image/png', title='Choose an image to upload'/>
+	
+                        <button" onclick="processImage()"><a class="btn-floating btn-large waves-effect waves-light azure" title="Read image"><i class="material-icons">visibility</i></a></button>
+						
 		</div>
 		
-            <button" onclick="processImage()" class="overlay"><a class="btn-floating btn-large waves-effect waves-light mediumaquamarine" title="Read image"><i class="material-icons">add</i></a></button>
+            <!--<button" onclick="processImage()" class="overlay"><a class="btn-floating btn-large waves-effect waves-light mediumaquamarine" title="Read image"><i class="material-icons">add</i></a></button>-->
 	  
 			<div id="image-container" class="image-container">
-	
-                    <!--<div class="col-xs-6 col-sm-4">
-                        <button class="btn btn-info btn-sm" onclick="processImage()" id="readimage"> READ IMAGE </button>
-                    </div>
-                <br><br>-->
 				
 				</div>
 				
 		<div id="image-result" class="image-result">
+			<div class="play pull-right">
+				<!--<a id="play-sound"><i class="fa fa-volume-up fa-4x" aria-hidden="true"></i></a>-->
+				<a id="play-sound" class="icon icon-sound"></a>
+			</div>
+			<h2 id="image-name"></h2>
+			<h3 id="image-translation"></h3>
 
-<!--<div class="container" style="display:none">-->
-<div class="container" style="display:none">
-
-        <div id="predictions">
+		
+			<div class="container">
+			<!--<div id="predictions">
             <div style="margin-top:30px; margin-left:20px; margin-bottom:30px; clear:left; float:left">
                 <img id="img_preview1" src="" width="400" />
                 <br/>
@@ -80,7 +83,7 @@
             </div>
             <div id="concepts" class="conceptBox">
             </div>
-        </div>
+        </div>-->
 		
                     <div class="col-xs-6 col-sm-4">
                         <!--<p style="color:#f0f0f0">JSON Response:</p>-->
@@ -114,7 +117,7 @@
         <label>Write message</label>
       </div>
     </div>
-    <a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
+    <a href="#" id="speak" class="btn-floating btn-large waves-effect waves-light azure"><i class="material-icons">volume_up</i></a>
   </form>  
 
 <div id="modal1" class="modal">
@@ -125,16 +128,11 @@
     <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
   </div>
 </div>
+
 </div>
 <!-- end text-to-speech -->
-					
-			<div class="play pull-right">
-				<!--<a id="play-sound"><i class="fa fa-volume-up fa-4x" aria-hidden="true"></i></a>-->
-				<a id="play-sound" class="icon icon-sound"></a>
-			</div>
-			<h2 id="image-name"></h2>
-			<h3 id="image-translation"></h3>
-		</div>
+</div>
+			
 	</div>
 	
 	
