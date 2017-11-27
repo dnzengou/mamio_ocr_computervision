@@ -1,88 +1,267 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Analyze Sample</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<title>MAMIO app test</title>
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="author" author="@DesireYavro">
+    <meta name="description" content="MAMIO | lightweight, easy and of quick access. Whenever you want, wherever you want, in one click.">
+    <meta name="keywords" content="mobile and desktop app, iPhone, Android, blackberry, jQuerymobile, image recognition, text to speech, AI, computer vision">
+    <meta name="robots" content="all">
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="icon" href="css/img/favicons/favicon.ico" type="image/x-icon">
+	<link href="css/watson-bootstrap-dark.css" rel="stylesheet">
+	<link href="css/ratchet.css" rel="stylesheet">
+	<link href="css/banner.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+    <!-- bootstrap & font awesome components -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- end bootstrap -->
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="css/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="css/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="css/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="css/img/favicons/manifest.json">
+    <link rel="mask-icon" href="css/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.1/css/materialize.min.css">
+
 </head>
+
 <body>
+	<header class="bar bar-nav">
+		<a id="capture-button" class="icon icon-share pull-right capture-button"></a>
+		<h1 class="title">MAMIO</h1>
+	</header>
+	<div id="landing" class="row landing">
+		<div class="col-lg-12">
+			<div class="row header">
+				<div class="avatar img-container col-lg-2 col-xs-2">
+					<img src="css/img/apple-touch-icon.png">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="content" class="content" style="display:none;">
+		<div class="image-selector">
+			<input id="picture-field" type="file" capture="camera" accept='image/x-png, image/jpg, image/gif, image/jpeg, image/png', title='Choose an image to upload'/>
+		</div>
+		
+            <button" onclick="processImage()" class="overlay"><a class="btn-floating btn-large waves-effect waves-light mediumaquamarine" title="Read image"><i class="material-icons">add</i></a></button>
+	  
+			<div id="image-container" class="image-container">
+	
+                    <!--<div class="col-xs-6 col-sm-4">
+                        <button class="btn btn-info btn-sm" onclick="processImage()" id="readimage"> READ IMAGE </button>
+                    </div>
+                <br><br>-->
+				
+				</div>
+				
+		<div id="image-result" class="image-result">
 
-<script type="text/javascript">
-    function processImage() {
-        // **********************************************
-        // *** Update or verify the following values. ***
-        // **********************************************
+<!--<div class="container" style="display:none">-->
+<div class="container" style="display:none">
 
-        // Replace the subscriptionKey string value with your valid subscription key.
-        var subscriptionKey = "xxx";
+        <div id="predictions">
+            <div style="margin-top:30px; margin-left:20px; margin-bottom:30px; clear:left; float:left">
+                <img id="img_preview1" src="" width="400" />
+                <br/>
+                <span id="add-image-button" style="visibility:hidden"><button onClick="addImageToApp(1)">Add image to application</button></span>
+            </div>
+            <div id="concepts" class="conceptBox">
+            </div>
+        </div>
+		
+                    <div class="col-xs-6 col-sm-4">
+                        <!--<p style="color:#f0f0f0">JSON Response:</p>-->
+						<p style="color:#f0f0f0"></p>
+                        <br><br>
+                        <textarea id="responseTextArea" class="UIInput" style="max-width:380px; height:400px;background-color:transparent; color:#f0f0f0"></textarea>
+                    </div>
+	<!-- text-to-speech -->
+  <form class="col s8 offset-s2">
+    <div class="row">
+      <label>Choose voice</label>
+      <select id="voices"></select>
+    </div>
+    <div class="row">
+      <div class="col s6">
+        <label>Rate</label>
+        <p class="range-field">
+          <input type="range" id="rate" min="1" max="100" value="10" />
+        </p>
+      </div>
+      <div class="col s6">
+        <label>Pitch</label>
+        <p class="range-field">
+          <input type="range" id="pitch" min="0" max="2" value="1" />
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="message" class="materialize-textarea"></textarea>
+        <label>Write message</label>
+      </div>
+    </div>
+    <a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
+  </form>  
 
-        // Replace or verify the region.
-        //
-        // You must use the same region in your REST API call as you used to obtain your subscription keys.
-        // For example, if you obtained your subscription keys from the westus region, replace
-        // "westcentralus" in the URI below with "westus".
-        //
-        // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-        // a free trial subscription key, you should not need to change this region.
-        var uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+<div id="modal1" class="modal">
+  <h4>Speech Synthesis not supported</h4>
+  <p>Your browser does not support speech synthesis.</p>
+  <p>We recommend you use Google Chrome.</p>
+  <div class="action-bar">
+    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
+  </div>
+</div>
+</div>
+<!-- end text-to-speech -->
+					
+			<div class="play pull-right">
+				<!--<a id="play-sound"><i class="fa fa-volume-up fa-4x" aria-hidden="true"></i></a>-->
+				<a id="play-sound" class="icon icon-sound"></a>
+			</div>
+			<h2 id="image-name"></h2>
+			<h3 id="image-translation"></h3>
+		</div>
+	</div>
+	
+	
+	<script type="text/javascript" src="js/vendor/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/vendor/ratchet.min.js"></script>
+	<script type="text/javascript" src="js/vendor/spin.min.js"></script>
+	<script type="text/javascript" src="js/audio.js"></script>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/ui.js"></script>
 
-        // Request parameters.
-        var params = {
-            "visualFeatures": "Categories,Description,Color",
-            "details": "",
-            "language": "en",
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js "></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.1/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+        /* Recognize and read printed text in an image at the specified URL by using Microsoft Cognitive 
+         * Services OCR API.
+         * @param {string} sourceImageUrl - The URL to the image to analyze for printed text.
+         * @param {<textarea> element} responseTextArea - The text area to display the JSON string returned
+         *                             from the REST API call, or to display the error message if there was 
+         *                             an error.
+         */
+
+        function processImage() {
+            // **********************************************
+            // *** Update or verify the following values. ***
+            // **********************************************
+
+            // Add valid subscription key.
+            var subscriptionKey = "a572110ef412425fb537e93b013271bd";
+
+            // Verify the region.
+            //
+            // You must use the same region in your REST API call as you used to obtain your subscription keys.
+            // For example, if you obtained your subscription keys from the westus region, replace
+            // "westcentralus" in the URI below with "westus".
+            //
+            // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
+            // a free trial subscription key, you should not need to change this region.
+            /*var uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";*/
+            var uriBase = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/ocr";
+
+            // Request parameters.
+            var params = {
+                "language": "unk",
+                "detectOrientation ": "true",
+            };
+
+            // Display the image.
+            var sourceImageUrl = document.getElementById("image-container").value;
+            document.querySelector("#sourceImage").src = sourceImageUrl;
+
+            // Perform the REST API call.
+            $.ajax({
+                url: uriBase + "?" + $.param(params),
+
+                // Request headers.
+                beforeSend: function(jqXHR) {
+                    jqXHR.setRequestHeader("Content-Type", "application/json");
+                    jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                },
+
+                type: "POST",
+
+                // Request body.
+                data: '{"url": ' + '"' + sourceImageUrl + '"}',
+            })
+
+            .done(function(data) {
+                // Show formatted JSON on webpage.
+                $("#responseTextArea").val(JSON.stringify(data, null, 2));
+            })
+
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                // Display error message.
+                var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+                errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+                    jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
+                alert(errorString);
+            });
         };
+    </script>
 
-        // Display the image.
-        var sourceImageUrl = document.getElementById("inputImage").value;
-        document.querySelector("#sourceImage").src = sourceImageUrl;
+<script>
+$(function(){
+  if ('speechSynthesis' in window) {
+    speechSynthesis.onvoiceschanged = function() {
+      var $voicelist = $('#voices');
 
-        // Perform the REST API call.
-        $.ajax({
-            url: uriBase + "?" + $.param(params),
+      if($voicelist.find('option').length == 0) {
+        speechSynthesis.getVoices().forEach(function(voice, index) {
+          console.log(voice);
+          var $option = $('<option>')
+          .val(index)
+          .html(voice.name + (voice.default ? ' (default)' :''));
 
-            // Request headers.
-            beforeSend: function(xhrObj){
-                xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-            },
-
-            type: "POST",
-
-            // Request body.
-            data: '{"url": ' + '"' + sourceImageUrl + '"}',
-        })
-
-        .done(function(data) {
-            // Show formatted JSON on webpage.
-            $("#responseTextArea").val(JSON.stringify(data, null, 2));
-        })
-
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            // Display error message.
-            var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-            errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
-            alert(errorString);
+          $voicelist.append($option);
         });
-    };
+
+        $voicelist.material_select();
+      }
+    }
+
+    $('#speak').click(function(){
+      var text = $('#responseTextArea').val();
+      var msg = new SpeechSynthesisUtterance();
+      var voices = window.speechSynthesis.getVoices();
+      msg.voice = voices[$('#voices').val()];
+      msg.rate = $('#rate').val() / 10;
+      msg.pitch = $('#pitch').val();
+      msg.text = text;
+
+      msg.onend = function(e) {
+        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+      };
+
+      console.log(speechSynthesis);
+
+      speechSynthesis.speak(msg);
+    })
+  } else {
+    $('#modal1').openModal();
+  }
+});
 </script>
 
-<h1>Analyze image:</h1>
-Enter the URL to an image of a natural or artificial landmark, then click the <strong>Analyze image</strong> button.
-<br><br>
-Image to analyze: <input type="text" name="inputImage" id="inputImage" value="http://upload.wikimedia.org/wikipedia/commons/3/3c/Shaki_waterfall.jpg" />
-<button onclick="processImage()">Analyze image</button>
-<br><br>
-<div id="wrapper" style="width:1020px; display:table;">
-    <div id="jsonOutput" style="width:600px; display:table-cell;">
-        Response:
-        <br><br>
-        <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
-    </div>
-    <div id="imageDiv" style="width:420px; display:table-cell;">
-        Source image:
-        <br><br>
-        <img id="sourceImage" width="400" />
-    </div>
-</div>
 </body>
+
 </html>
